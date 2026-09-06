@@ -1,6 +1,6 @@
-# Extra credit design: you own these decisions
+# Extra credit design: my decisions
 
-AI may write the code. Do not let it invent the teaching point.
+AI wrote the code. It did not invent the teaching point.
 
 ## Teaching point (one sentence)
 
@@ -23,7 +23,7 @@ Use the **Problem 2** directed graph and the given h(n). Same numbers as the wri
 - A maze editor (out of scope unless you finish the core demo early).
 - A lecture transcript. Short captions beat paragraphs.
 
-## Implementation notes for whoever codes it
+## Implementation notes I gave the AI
 
 - Keep the search engine pure: `state → nextState`. The UI only renders snapshots.
 - Stop when G is **expanded**, not when it first enters the open set.

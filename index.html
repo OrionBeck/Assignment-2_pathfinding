@@ -55,14 +55,8 @@
       <p>From this folder:</p>
       <pre><code>python -m http.server 4173</code></pre>
       <p>Then open <a href="http://localhost:4173/">http://localhost:4173/</a>. Or open <code>index.html</code> through any static host (GitHub Pages works; just serve this folder).</p>
-      <h3>What to do</h3>
-      <ol>
-        <li><b>Step through</b>: Next step / Back / Reset, or arrow keys. Badges on nodes are <code>g+h=f</code>. The list is the open set, cheapest f first.</li>
-        <li><b>A* vs Dijkstra</b>: same moment, Dijkstra would pick smallest g, A* picks smallest f.</li>
-        <li><b>h vs h*</b>: the table guess versus the true leftover to G. Click a node.</li>
-        <li>Click any node to see why it is next, waiting, or closed.</li>
-      </ol>
-      <p>Stop rule: G is expanded, not merely discovered.</p>
+      <h3>Everything else</h3>
+      <p>The page has four tabs: Step through, A* vs Dijkstra, h vs h*, and Docs. The Docs tab contains the design notes, the experience report, and the full AI log, so everything is readable on the page itself. The same content is also in DESIGN.md, REPORT.md, and AI_LOG.md.</p>
 
       <h2>DESIGN: the decisions I owned</h2>
       <p>AI wrote the code. It did not invent the teaching point.</p>
@@ -121,8 +115,8 @@
       <h3>Session 2 (2026-09-03, 11:04 PM)</h3>
       <p><b>User:</b></p>
       <blockquote>show the homework heuristic table so the user can see all the h values - put it below everything just as reference ( makes sense right/)</blockquote>
-      <p><b>Assistant:</b> I’ll put the same h table in the Step through panel and highlight the node being expanded.</p>
-      <p><b>Assistant (tool calls):</b> Edited <code>index.html</code> to add a reference section with the full h(n) table under the footer. Edited <code>styles.css</code> for the reference table. Edited <code>app.js</code> to add <code>hTableHtml</code> and <code>markRefH</code>, and to highlight the h of the node being expanded in the Step through panel.</p>
+      <p><b>Assistant:</b> I’ll add the full h(n) table below everything as a reference.</p>
+      <p><b>Assistant (tool calls):</b> Edited <code>index.html</code> to add a reference section with the full h(n) table under the footer. Edited <code>styles.css</code> for the reference table.</p>
       <p><b>Assistant (final):</b> Yes. A* only looks those up, so the table belongs under the demo as a reference, not in the stepping UI. Under the graph: h(S)=10, h(A)=7, h(B)=10, h(C)=15, h(D)=1, h(E)=8, h(F)=1, h(G)=0.</p>
 
       <h3>Session 3 (2026-09-03, 11:11 PM)</h3>

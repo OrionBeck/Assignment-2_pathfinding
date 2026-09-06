@@ -32,9 +32,9 @@ Tool: Cursor (agent). This log covers only the extra-credit A* demo. The PDF for
 
 **Assistant:**
 
-> I’ll put the same h table in the Step through panel and highlight the node being expanded.
+> I’ll add the full h(n) table below everything as a reference.
 
-**Assistant (tool calls):** Edited `index.html` to add a `.ref` section with the full h(n) table under the footer. Edited `styles.css` for the reference table. Edited `app.js` to add `hTableHtml` and `markRefH`, and to highlight the h of the node being expanded in the Step through panel.
+**Assistant (tool calls):** Edited `index.html` to add a reference section with the full h(n) table under the footer. Edited `styles.css` for the reference table.
 
 **Assistant (final):**
 
