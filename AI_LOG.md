@@ -12,13 +12,13 @@ Tool: Cursor (agent). This log covers only the extra-credit A* demo. The PDF for
 
 **Assistant:**
 
-> I’ll turn the A* teaching page into a simpler extra-credit demo, then add the GitHub repo, AI log, and report.
+> I’ll build the extra-credit demo from that spec, then add the GitHub repo, AI log, and report.
 
 **Assistant (tool calls):** Read DESIGN.md, read new-repo skill, checked git status (not a repo, gh not installed). Created `extra-credit/index.html`, `styles.css`, `app.js`. Wrote README.md, REPORT.md, AI_LOG.md, .gitignore. Updated DESIGN.md with “What shipped.” Verified files serve at `http://127.0.0.1:4173/extra-credit/`. Ran `git init -b main`, staged files, commit failed (no git identity).
 
 **Assistant (final):**
 
-> The extra-credit demo is the teaching page, cut down to three views and black-and-white so it is easier to move around. Open [http://localhost:4173/extra-credit/](http://localhost:4173/extra-credit/). What a viewer does: Step through: Next / Back / Reset. Node badges are g+h=f. The list is the open set, cheapest f first. Stop when G is expanded. A* vs Dijkstra: same moment: Dijkstra wants smallest g, A* wants smallest f. That is the C trap (g=1, f=16) versus A (g=3, f=10). h vs h*: claimed leftover versus true leftover. Click a node. That is your design from DESIGN.md: homework graph, one expansion per click, click-for-why, no maze editor. Deliverables in extra-credit/: browser app, AI_LOG.md, REPORT.md, README.md. GitHub repo is not up yet. Git is initialized and files are staged. This machine has no git name/email and no gh.
+> The extra-credit demo is three views, black and white, so it is easy to move around. Open [http://localhost:4173/extra-credit/](http://localhost:4173/extra-credit/). What a viewer does: Step through: Next / Back / Reset. Node badges are g+h=f. The list is the open set, cheapest f first. Stop when G is expanded. A* vs Dijkstra: same moment: Dijkstra wants smallest g, A* wants smallest f. That is the C trap (g=1, f=16) versus A (g=3, f=10). h vs h*: claimed leftover versus true leftover. Click a node. That is your design from DESIGN.md: homework graph, one expansion per click, click-for-why, no maze editor. Deliverables in extra-credit/: browser app, AI_LOG.md, REPORT.md, README.md. GitHub repo is not up yet. Git is initialized and files are staged. This machine has no git name/email and no gh.
 
 ---
 
