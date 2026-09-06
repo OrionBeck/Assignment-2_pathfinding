@@ -32,11 +32,12 @@ Use the **Problem 2** directed graph and the given h(n). Same numbers as the wri
 
 ## What shipped
 
-Three views, black and white, one graph always on screen:
+Black and white, one graph always on screen:
 
 1. **Step through**: expand by smallest f. Open set shows g, h, f.
 2. **A\* vs Dijkstra**: same snapshot, two picks.
 3. **h vs h\***: claimed leftover vs true leftover.
+4. **Docs**: this file, the report, and the AI log, readable on the page.
 
 ## Repo
 
