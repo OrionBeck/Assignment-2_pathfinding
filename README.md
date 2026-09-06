@@ -16,21 +16,6 @@ Then open [http://localhost:4173/](http://localhost:4173/).
 
 Or open `index.html` through any static host (GitHub Pages works; just serve this folder).
 
-## What to do
+## Everything else
 
-1. **Step through**: Next step / Back / Reset, or arrow keys. Badges on nodes are `g+h=f`. The list is the open set, cheapest f first.
-2. **A* vs Dijkstra**: same moment, Dijkstra would pick smallest g, A* picks smallest f.
-3. **h vs h***: the table guess versus the true leftover to G. Click a node.
-4. Click any node to see why it is next, waiting, or closed.
-
-Stop rule: G is expanded, not merely discovered.
-
-## Design
-
-See [DESIGN.md](DESIGN.md). I chose the homework graph so the demo replays the writeup. The interesting beat is C (g=1, f=16) versus A (g=3, f=10).
-
-## Extra-credit extras
-
-- **Docs view**: the fourth tab on the page. README, DESIGN.md, REPORT.md, and the full AI_LOG.md are all on `index.html`, so the grader sees everything in one place.
-- [AI_LOG.md](AI_LOG.md): every AI session used for this assignment
-- [REPORT.md](REPORT.md): what AI helped with and where it failed
+The page has four tabs: Step through, A* vs Dijkstra, h vs h*, and Docs. The Docs tab contains the design notes, the experience report, and the full AI log, so everything is readable on the page itself. The same content is also in [DESIGN.md](DESIGN.md), [REPORT.md](REPORT.md), and [AI_LOG.md](AI_LOG.md).
