@@ -18,10 +18,10 @@ I gave the AI a plain prompt: “Make a webpage that shows how A* works on the h
 
 ## Where AI tools struggled
 
-- **Understanding vs replaying.** Early tools let me click through tables without knowing what “admissible” or “optimal” meant. I had to keep asking in plain English.
-- **Wrong letter pairs.** It mixed h with g, and f with the true end distance. The real checks are h ≤ h* and h(here) ≤ edge + h(next).
-- **Graph weights.** It guessed different Problem 1 edge weights in different passes. I had to double-check the numbers myself.
-- **Wording.** Generated sentences sounded like a textbook. I had to force the writeup into the two inequalities I actually understand.
+- **It wanted to build a maze.** Every A* demo it knows is a maze solver. I had to insist on the homework graph.
+- **Wrong numbers at first.** It guessed edge weights and h values from memory instead of reading them off the assignment figure. I checked every number myself.
+- **Overcomplicated UI.** First passes had color, extra panels, and features I never asked for. I kept cutting it back to black and white and three buttons.
+- **Wording.** Generated captions sounded like a textbook. I had to force them into short plain sentences.
 
 ## What I would do differently
 

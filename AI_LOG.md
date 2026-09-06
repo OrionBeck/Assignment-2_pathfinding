@@ -98,7 +98,7 @@ Tool: Cursor (agent). This log covers only the extra-credit A* demo. The PDF for
 
 **Assistant (final):**
 
-> Everything you turn in is in hw-pathfinding/submission. Required (LMS / PDF): Beck_Orion_Dijkstra_AStar.pdf: Problems 1 and 2. solution.md: same answers as text. Extra credit: folder submission/extra-credit/: browser app, AI_LOG.md, REPORT.md, README.md and DESIGN.md for the grader. Upload the PDF for the main assignment. Put the extra-credit folder in a shared GitHub repo and submit that URL (that part is still not published). Practice apps (viewer, honest, worksheet) are not in this folder on purpose.
+> Everything you turn in is in hw-pathfinding/submission. Required (LMS / PDF): Beck_Orion_Dijkstra_AStar.pdf: Problems 1 and 2. solution.md: same answers as text. Extra credit: folder submission/extra-credit/: browser app, AI_LOG.md, REPORT.md, README.md and DESIGN.md for the grader. Upload the PDF for the main assignment. Put the extra-credit folder in a shared GitHub repo and submit that URL (that part is still not published).
 
 ---
 
