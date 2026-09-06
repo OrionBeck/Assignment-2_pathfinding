@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How A* chooses</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <p class="kicker">Interactive A* demonstration</p>
+        <h1>How A* chooses the next node</h1>
+        <p class="lead">
+          A* expands the smallest <b>f = g + h</b>. A cheap first step can still lose
+          if the leftover guess is honest.
+        </p>
+      </div>
+      <nav>
+        <button type="button" data-view="play" class="on">Step through</button>
+        <button type="button" data-view="compare">A* vs Dijkstra</button>
+        <button type="button" data-view="honest">h vs h*</button>
+        <button type="button" data-view="docs">Docs</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="graph-pane">
+        <svg id="svg" viewBox="0 0 720 400" aria-label="Homework graph"></svg>
+        <p class="legend">
+          <span><i class="idle"></i> not seen</span>
+          <span><i class="open"></i> open</span>
+          <span><i class="cur"></i> expanding</span>
+          <span><i class="done"></i> closed</span>
+          <span><i class="path"></i> final path</span>
+        </p>
+      </section>
+
+      <aside>
+        <div id="panel"></div>
+        <div class="controls">
+          <button type="button" id="btn-reset">Reset</button>
+          <button type="button" id="btn-back">Back</button>
+          <button type="button" id="btn-step" class="on">Next step</button>
+        </div>
+        <p id="step-label" class="step-label"></p>
+      </aside>
+    </main>
+
+    <section id="docs" hidden>
+      <h2>README: how to open and use this demo</h2>
+      <p>Browser demo of A* on the homework graph (start <b>S</b>, goal <b>G</b>).</p>
+      <p><b>Teaching point:</b> A* expands the node with smallest <b>f = g + h</b>. A cheap first step (S→C) can lose to a more expensive start (S→A) when the leftover guess is honest.</p>
+      <h3>Open the demo</h3>
+      <p>From this folder:</p>
+      <pre><code>python -m http.server 4173</code></pre>
+      <p>Then open <a href="http://localhost:4173/">http://localhost:4173/</a>. Or open <code>index.html</code> through any static host (GitHub Pages works; just serve this folder).</p>
+      <h3>What to do</h3>
+      <ol>
+        <li><b>Step through</b>: Next step / Back / Reset, or arrow keys. Badges on nodes are <code>g+h=f</code>. The list is the open set, cheapest f first.</li>
+        <li><b>A* vs Dijkstra</b>: same moment, Dijkstra would pick smallest g, A* picks smallest f.</li>
+        <li><b>h vs h*</b>: the table guess versus the true leftover to G. Click a node.</li>
+        <li>Click any node to see why it is next, waiting, or closed.</li>
+      </ol>
+      <p>Stop rule: G is expanded, not merely discovered.</p>
+
+      <h2>DESIGN: the decisions I owned</h2>
+      <p>AI wrote the code. It did not invent the teaching point.</p>
+      <h3>Teaching point (one sentence)</h3>
+      <p>A* expands the node with smallest <b>f = g + h</b>, so a cheap first step (S → C) can lose to a more expensive start (S → A) when the remaining estimate is honest.</p>
+      <h3>Graph</h3>
+      <p>The <b>Problem 2</b> directed graph and the given h(n). Same numbers as the writeup, so the viewer can replay the homework.</p>
+      <h3>Viewer can</h3>
+      <ol>
+        <li>See the graph with nodes colored: unvisited / open / current / closed / on final path.</li>
+        <li>See the open set sorted by f, with g and h on every row.</li>
+        <li>Step forward one expansion, step back, and reset.</li>
+        <li>Click a node to read why it was expanded or left in the open set.</li>
+        <li>Toggle: “node Dijkstra would pick next” vs “node A* picks next.”</li>
+      </ol>
+      <h3>Viewer cannot need</h3>
+      <ul>
+        <li>A maze editor (out of scope).</li>
+        <li>A lecture transcript. Short captions beat paragraphs.</li>
+      </ul>
+      <h3>What shipped</h3>
+      <p>Three views, black and white, one graph always on screen: <b>Step through</b> (expand by smallest f, open set shows g, h, f), <b>A* vs Dijkstra</b> (same snapshot, two picks), <b>h vs h*</b> (claimed leftover vs true leftover).</p>
+
+      <h2>REPORT: my experience using AI on this</h2>
+      <h3>Why this was easy for me</h3>
+      <p>I use AI every day and have built webpages for a lot of different things before this class. When the assignment said “you can use AI tools without any restriction,” the difficulty dropped to almost nothing. The hard part was figuring out what the demo should teach. Once I had that, the AI did the rest.</p>
+      <h3>What I actually designed</h3>
+      <p>I wanted the demo to show <i>why</i> A* picks the next node, not just animate a path. Most A* demos are maze solvers. You click start and end, it floods, and a path appears. That doesn’t teach you what the algorithm is doing. So I skipped the maze and used the homework graph. The interesting part is the trap: S→C costs 1, but f(C)=16. S→A costs 3 but f(A)=10. A* picks A. That’s the whole point.</p>
+      <p>I gave the AI a plain prompt: “Make a webpage that shows how A* works on the homework graph. Let me click through one step at a time. Show g, h, and f on each node. Let me go back and reset. Stop when G is picked. Let me click a node to see why it was chosen. Also show what Dijkstra would pick instead, and show h vs h*. Put the homework h table on the page. Keep it black and white and simple. No maze.”</p>
+      <h3>Where AI tools helped</h3>
+      <ul>
+        <li><b>Turning my design into a working app fast.</b> I described the three views and the rules, and it wrote the HTML/CSS/JS.</li>
+        <li><b>Adding the h table when I asked.</b> Quick ask, worked.</li>
+        <li><b>Boilerplate.</b> README, folder layout, local server command.</li>
+      </ul>
+      <h3>Where AI tools struggled</h3>
+      <ul>
+        <li><b>Understanding vs replaying.</b> Early tools let me click through tables without knowing what “admissible” or “optimal” meant. I had to keep asking in plain English.</li>
+        <li><b>Wrong letter pairs.</b> It mixed h with g, and f with the true end distance. The real checks are h ≤ h* and h(here) ≤ edge + h(next).</li>
+        <li><b>Graph weights.</b> It guessed different Problem 1 edge weights in different passes. I had to double-check the numbers myself.</li>
+        <li><b>Wording.</b> Generated sentences sounded like a textbook. I had to force the writeup into the two inequalities I actually understand.</li>
+      </ul>
+      <h3>What I would do differently</h3>
+      <p>Write the teaching point and the three views on paper first, then ask AI only to implement that spec. The AI is good at building what you describe. It’s bad at figuring out what you should describe.</p>
+
+      <h2>AI LOG: every session for this demo</h2>
+      <p>Tool: Cursor (agent). This log covers only the extra-credit A* demo. The PDF for Problems 1 and 2 was already done before these sessions.</p>
+
+      <h3>Session 1 (2026-09-03, 3:16 PM)</h3>
+      <p><b>User:</b></p>
+      <blockquote>Make a webpage that shows how A* works on the homework graph. Let me click through one step at a time. Show g, h, and f on each node. Let me go back and reset. Stop when G is picked. Let me click a node to see why it was chosen. Also show what Dijkstra would pick instead, and show h vs h*. Put the homework h table on the page. Keep it black and white and simple. No maze.</blockquote>
+      <p><b>Assistant:</b> I’ll turn the A* teaching page into a simpler extra-credit demo, then add the GitHub repo, AI log, and report.</p>
+      <p><b>Assistant (tool calls):</b> Read DESIGN.md, read new-repo skill, checked git status (not a repo, gh not installed). Created <code>extra-credit/index.html</code>, <code>styles.css</code>, <code>app.js</code>. Wrote README.md, REPORT.md, AI_LOG.md, .gitignore. Updated DESIGN.md with “What shipped.” Verified files serve at <code>http://127.0.0.1:4173/extra-credit/</code>. Ran <code>git init -b main</code>, staged files, commit failed (no git identity).</p>
+      <p><b>Assistant (final):</b> The extra-credit demo is the teaching page, cut down to three views and black-and-white so it is easier to move around. What a viewer does: Step through: Next / Back / Reset. Node badges are g+h=f. The list is the open set, cheapest f first. Stop when G is expanded. A* vs Dijkstra: same moment: Dijkstra wants smallest g, A* wants smallest f. That is the C trap (g=1, f=16) versus A (g=3, f=10). h vs h*: claimed leftover versus true leftover. Click a node. Deliverables in extra-credit/: browser app, AI_LOG.md, REPORT.md, README.md. GitHub repo is not up yet. Git is initialized and files are staged. This machine has no git name/email and no gh.</p>
+
+      <h3>Session 2 (2026-09-03, 11:04 PM)</h3>
+      <p><b>User:</b></p>
+      <blockquote>show the homework heuristic table so the user can see all the h values - put it below everything just as reference ( makes sense right/)</blockquote>
+      <p><b>Assistant:</b> I’ll put the same h table in the Step through panel and highlight the node being expanded.</p>
+      <p><b>Assistant (tool calls):</b> Edited <code>index.html</code> to add a reference section with the full h(n) table under the footer. Edited <code>styles.css</code> for the reference table. Edited <code>app.js</code> to add <code>hTableHtml</code> and <code>markRefH</code>, and to highlight the h of the node being expanded in the Step through panel.</p>
+      <p><b>Assistant (final):</b> Yes. A* only looks those up, so the table belongs under the demo as a reference, not in the stepping UI. Under the graph: h(S)=10, h(A)=7, h(B)=10, h(C)=15, h(D)=1, h(E)=8, h(F)=1, h(G)=0.</p>
+
+      <h3>Session 3 (2026-09-03, 11:11 PM)</h3>
+      <p><b>User:</b></p>
+      <blockquote>step through uses it aswell</blockquote>
+      <p><b>Assistant:</b> I’ll put the same h table in the Step through panel and highlight the node being expanded.</p>
+      <p><b>Assistant (tool calls):</b> Edited <code>app.js</code> to add <code>hTableHtml(used)</code> and <code>markRefH(used)</code>. The Step through panel now shows the homework h table with the current node’s h highlighted, and the bottom reference table tracks the same highlight.</p>
+      <p><b>Assistant (final):</b> Step through now uses the same table. Each expansion highlights the h it just looked up, and f = g + that h. The black cell is the node being expanded (or the one you clicked). The reference table at the bottom tracks the same highlight.</p>
+
+      <h3>Session 4 (2026-09-03, 11:12 PM)</h3>
+      <p><b>User:</b></p>
+      <blockquote>put the heuristic table for all H values below this: Homework graph: start S, goal G. Click a node for why it was picked or skipped. Arrow keys also step.</blockquote>
+      <p><b>Assistant:</b> I’ll put the h table in the footer, directly under that sentence.</p>
+      <p><b>Assistant (tool calls):</b> Moved the h table from a separate reference section into the <code>&lt;footer&gt;</code>, directly under the instructions. Updated <code>styles.css</code> so the footer table is compact and the highlight class works there.</p>
+      <p><b>Assistant (final):</b> The h table now sits in the footer, directly under that sentence: Homework heuristic h(n) with S=10, A=7, B=10, C=15, D=1, E=8, F=1, G=0.</p>
+
+      <h3>Session 5 (2026-09-06, 12:26 PM)</h3>
+      <p><b>User:</b></p>
+      <blockquote>prepare a submission folder that has all files we need to submit</blockquote>
+      <p><b>Assistant:</b> I’ll gather the required PDF plus the extra-credit demo, AI log, and report into one folder you can turn in.</p>
+      <p><b>Assistant (tool calls):</b> Created <code>submission/</code>. Copied <code>Beck_Orion_Dijkstra_AStar.pdf</code> and <code>solution.md</code>. Created <code>submission/extra-credit/</code> and copied <code>index.html</code>, <code>app.js</code>, <code>styles.css</code>, <code>README.md</code>, <code>AI_LOG.md</code>, <code>REPORT.md</code>, <code>DESIGN.md</code>. Wrote <code>submission/README.md</code> explaining what to upload and what not to submit.</p>
+      <p><b>Assistant (final):</b> Everything to turn in is in hw-pathfinding/submission. Required: Beck_Orion_Dijkstra_AStar.pdf (Problems 1 and 2) and solution.md. Extra credit: submission/extra-credit/ with the browser app, AI_LOG.md, REPORT.md, README.md and DESIGN.md. Practice apps (viewer, honest, worksheet) are not in this folder on purpose.</p>
+
+      <h3>Session 6 (2026-09-06, 12:59 PM)</h3>
+      <p><b>User:</b></p>
+      <blockquote>include all .mds and extra credit submissables on the index.html</blockquote>
+      <p><b>Assistant:</b> I’ll add a Docs view to the page with the README, design notes, report, and this log, so the grader sees everything in one place.</p>
+      <p><b>Assistant (tool calls):</b> Added a “Docs” nav button and a <code>#docs</code> section to <code>index.html</code> containing the full text of README.md, DESIGN.md, REPORT.md, and AI_LOG.md. Edited <code>app.js</code> so the Docs view hides the graph and shows the writeup. Edited <code>styles.css</code> for docs typography. Synced the updated files into <code>submission/extra-credit/</code>.</p>
+      <p><b>Assistant (final):</b> The page now has a fourth view, Docs. It has everything the grader needs: how to open the demo (README), the design decisions (DESIGN.md), the experience report (REPORT.md), and this full AI log. The .md files are still in the repo, but nothing lives only in a file anymore. It is all on index.html.</p>
+    </section>
+
+    <footer>
+      <p>Homework graph: start S, goal G. Click a node for why it was picked or skipped. Arrow keys also step.</p>
+      <h2>Homework heuristic h(n)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>n</th>
+            <th>S</th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+            <th>E</th>
+            <th>F</th>
+            <th>G</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="h-ref-row">
+            <th>h(n)</th>
+            <td data-h="S">10</td>
+            <td data-h="A">7</td>
+            <td data-h="B">10</td>
+            <td data-h="C">15</td>
+            <td data-h="D">1</td>
+            <td data-h="E">8</td>
+            <td data-h="F">1</td>
+            <td data-h="G">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </footer>
+    <script src="./app.js"></script>
+  </body>
+</html>
